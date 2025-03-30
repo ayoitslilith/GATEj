@@ -1,0 +1,14 @@
+
+	[
+		{
+			"name": "At Least I'm Alive",
+			"exp": "Although their future is uncertain, they are drawing breath.",
+			"effects": [
+				{
+					"effectType": "change_arith",
+					"tags": ["taxes", "immunology", "dietetics", "musculoskeletal", "hygienics", ],
+					"val": -0.1
+				}
+			]
+		}
+	]

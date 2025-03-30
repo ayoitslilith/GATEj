@@ -1,0 +1,84 @@
+[
+  {
+    "effects": [{
+      "val": -0.1,
+      "effect_type": "change_arith",
+      "tags": [
+        "taxes",
+        "immunology",
+        "dietetics",
+        "musculoskeletal",
+        "hygienics"
+      ]
+    }],
+    "name": "At Least I'm Alive",
+    "exp": "Although their future is uncertain, they are drawing breath."
+  },
+  [
+    {
+      "effects": [
+        {
+          "val": -2,
+          "check": "Example Check",
+          "exp": [
+            "This is an effect, and the first in the list of example effects. This one is a check modifier (explained in exp1). It is applied every time",
+            "a check is made. This effect type should not be applied in any other case. Additionally, it should only be applied to the specified check."
+          ],
+          "effectType": "checkMod"
+        },
+        {
+          "val": 1,
+          "exp": "This effect adds the listed modifier value to a statistic after any events with the same tag. In this instance, it's the 'life' tag.",
+          "effectType": "changeArith",
+          "tags": ["life"]
+        },
+        {
+          "val": -3,
+          "exp": [
+            "This effect caps the maximum amount a value can change by, positively or negatively. A -3 prevents the statistic from losing more than 3",
+            "points in a given result."
+          ],
+          "effectType": "changeCap",
+          "tags": [
+            "social",
+            "example"
+          ]
+        }
+      ],
+      "name": "Example Disorder",
+      "exp1": [
+        "The above block is used for determining the difficulty for a present disorder to be diagnosed (does NOT determine whether the disorder is present)",
+        "and the difficulty for it to be a misdiagnosis. All random chance events are performed by selecting a random number between 1 and 6, inclusive.",
+        "A difficulty determines the minimum value for a the random number to hit in order for the check to pass. Modifiers affect the range of values",
+        "that the random number generator will choose between. For example, a modifier of -2 will cause the generator to select a number between -1 and 4,",
+        "inclusive."
+      ],
+      "exp": "As reference for making future disorders easier, I have written an example disorder. This is not an actual disorder normally applicable to participants in-game, and as such, will cause unpredictable results if used in-game. Consider reporting this to the developer if you see this during normal gameplay.",
+      "exp0": [
+        "The above block is the in-game name and explanation each disorder. Each disorder is randomly selected with (by default) even weight.",
+        "That being said, this one should be impossible to select."
+      ],
+      "misdiagnosisDiff": 30,
+      "diagnosisDiff": 30
+    },
+    {
+      "effects": [
+        {
+          "val": -3,
+          "check": "Mind Reading",
+          "effectType": "checkMod",
+          "tags": ["social"]
+        },
+        {"effectType": "checkMod"}
+      ],
+      "name": "Autism Spectrum Disorder",
+      "misdiagnosisDiff": 3,
+      "diagnosisDiff": 4
+    },
+    {
+      "name": "Major Depressive Disorder",
+      "misdiagnosisDiff": 2,
+      "diagnosisDiff": 2
+    }
+  ]
+]
