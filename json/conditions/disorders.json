@@ -16,22 +16,22 @@
 		"effects": [
 			{
 				"effectType": "checkMod",
-				"check": "Example Check",
+				"tags" : ["checkMod"],
 				"val": -2,
 				"exp": ["This is an effect, and the first in the list of example effects. This one is a check modifier (explained in exp1). It is applied every time",
-						"a check is made. This effect type should not be applied in any other case. Additionally, it should only be applied to the specified check."],
+						"a check is made. This effect type should not be applied in any other case. Additionally, it should only be applied to the specified check."]
 			},
 			{
 				"effectType": "changeArith",
 				"tags":["life"],
                 "stats": ["relevant"],
 				"val": 1,
-				"exp": "This effect adds the listed modifier value to a statistic after any events with the same tag. In this instance, it's the 'life' tag.",
+				"exp": "This effect adds the listed modifier value to a statistic after any events with the same tag. In this instance, it's the 'life' tag."
 			},
 			{
-				"effectType": "addCond",
-				"tags":["eventName"],
-				"cond":
+				"effectType": "event",
+				"tags":["relevant"],
+				"event":"Example Event"
 			},
 			{
 				"effectType": "changeCap",
@@ -41,7 +41,7 @@
 				"exp": ["This effect caps the maximum amount a value can change by, positively or negatively. A -3 prevents the statistic from losing more than 3",
 						"points in a given result."] 
 			}
-		],
+		]
 			
 			
 	},
@@ -67,7 +67,7 @@
 		"name": "Major Depressive Disorder",
 		
 		"diagnosisDiff": 2,
-		"misdiagnosisDiff": 2,
+		"misdiagnosisDiff": 2
 		
 	}
 ]

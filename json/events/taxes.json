@@ -1,0 +1,97 @@
+[
+    {
+        "event" : "Hunger",
+        "checkType" : "Shoulding",
+        "statistic": "dietetics",
+        "thresholds": [-1, 1, 3, 5],
+        "outcomes": [
+            {
+                "diag" : "Participant is dangerously hungry.",
+                "effects": [
+                    {
+                        "effectType": "addCond",
+                        "condition": "Malnourishment"
+                    }
+                ]
+            }
+            {
+                "diag" : "Participant is excessively hungry.",
+                "effects": [
+                    {
+                        "effectType" : "changeArith",
+                        "stats": ["Passion", "Focus", "Serenity", "Certainty", "Stability", "Immunology", "Musculoskeletal"],
+                        "val": -0.3
+                    }
+                ]
+            },
+            {
+                "diag": "Participant is hungry.",
+                "effects": [
+                    {
+                        "effectType": "changeArith",
+                        "stats": ["Immunology", "Musculoskeletal"],
+                        "val": -0.1
+                    }
+                ]
+            },
+            {
+                "diag": "Participant is acceptably nourished.",
+                "effects": [
+                    {
+                        "effectType": "changeArith",
+                        "stats": ["Immunology", "Serenity"],
+                        "val": 0.1
+                    }
+                ]
+            },
+            {
+                "diag": "Participant is overnourished.",
+                "effects": [
+                    {
+                        "effectType": "addCond",
+                        "condition" : "Overnourishment"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "event" : "Malnourishment",
+        "checkType": "Catastrophizing",
+        "statistic": "dietetics",
+        "thresholds": [5], 
+        "outcomes": [
+            {
+                "diag": "Patient is facing the lasting effects of malnourishment."
+            },
+            {
+                "diag": "Patient is beginning to overcome the effects of malnourishment.",
+                "effects": [
+                    {
+                        "effectType": "removeCond",
+                        "condition": "Malnourishment"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "event": "Overnourishment",
+        "checkType": "Catastrophizing",
+        "thresholds": [2],
+        "outcomes": [
+            {
+                "diag": "Participant is beginning to overcome the effects of overnourishment.",
+                "effects": [
+                    {
+                        "effectType": "removeCond",
+                        "condition": "Overnourishment"
+                    }
+                ]
+            },
+            {
+                "diag": "Participant is facing the lasting consequences of overnourishment.",
+            }
+        ]
+    }
+]

@@ -5,22 +5,23 @@ class Participant {
   float phys, psyc, stim;
   FloatDict inStats;
   FloatDict chStats;
+  FloatDict caps; //unimplemented
   String[] physStatNames = {"hygienics", "immunology", "musculoskeletal", "diatetics"};
   String[] psycStatNames = {"stability", "certainty", "identity", "serenity"};
   String[] stimStatNames = {"currency", "focus", "passion", "superordinance"};
   String[] inStatNames = {"hygienics", "immunology", "musculoskeletal", "diatetics",
                        "stability", "certainty", "identity", "serenity",
                        "currency", "focus", "passion", "superordinance"};
-  
+ 
   
   JSONArray activeConds;
   JSONArray possibleConds;
   
-  float checkMod;
+  JSONArray events;
   
   
   
-  Participant(boolean loadPrev, JSONArray possibleCondsParam){
+  Participant(boolean loadPrev, JSONArray possibleCondsParam, JSONArray eventsParam){
     possibleConds = possibleCondsParam;
     if (loadPrev) {
       println("No loading code yet, sorry!");
@@ -57,10 +58,9 @@ class Participant {
       
       inStats.set("shift", 1.0);
       
-      checkMod = 0.0;
-      
       activeConds = new JSONArray();
-      addEffect("At Least I'm Alive");
+      addCond("At Least I'm Alive");
+      events = eventsParam;
     } 
   }
   
@@ -87,6 +87,7 @@ class Participant {
   
   void applyStatChanges() {
     for (int i = 0; i < inStatNames.length; i++) {
+      
       inStats.set(inStatNames[i], inStats.get(inStatNames[i]) + chStats.get(inStatNames[i]));
     }
     statChangeClear();
@@ -96,18 +97,77 @@ class Participant {
     inStats.set(stat, inStats.get(stat) + 1);
   }
   
-  void addEffect(String name){
+  void addCond(String name){
     for (int i = 0; i < possibleConds.size(); i++) {
       if (possibleConds.getJSONObject(i).getString("name").equals(name)) {
         activeConds.append(possibleConds.getJSONObject(i));
+        break;
       }
     }
   }
   
-  void removeEffect(String name){
+  void removeConds(String name){
     for (int i = 0; i < activeConds.size(); i++){
       if (activeConds.getJSONObject(i).getString("name").equals(name)) {
         activeConds.remove(i);
+      }
+    }
+  }
+  
+  void runEffect(JSONObject effect) {
+    JSONArray affectedStats;
+    switch (effect.getString("effectType")) {
+      case "changeArith":
+        affectedStats = effect.getJSONArray("stats");
+        for (int u = 0; u < affectedStats.size(); u++) {
+          chStats.set(affectedStats.getString(u), chStats.get(affectedStats.getString(u)) + affectedStats.getFloat(u));
+        }
+        break;
+      case "checkMod":
+        checkMod += effect.getFloat("val");
+        break;
+      case "changeCap":
+        float val = effect.getFloat("val");
+        affectedStats = effect.getJSONArray("stats");
+        if (val > 0) {
+          for (int i = 0; i < affectedStats.size(); i++) {
+              if (chStats.get(affectedStats.getString(i)) > val) {
+                chStats.set(affectedStats.getString(i), val);
+              }
+          }
+        }
+        else if (val < 0) {
+          for (int i = 0; i > affectedStats.size(); i++) {
+            if (chStats.get(affectedStats.getString(i)) < val) {
+              chStats.set(affectedStats.getString(i), val);
+            }
+          }
+        }
+        else if (val == 0) {
+          for (int i = 0; i > affectedStats.size(); i++) {
+            chStats.set(affectedStats.getString(i), 0); 
+          }
+        }
+        break; 
+       case "event":
+         runEvent(effect.getString("event"));
+         break;
+       case "addCond":
+         addCond(effect.getString("condition"));
+         break;
+       case "removeCond":
+         removeConds(effect.getString("condition"));
+         break;
+    }
+  }
+  
+  void runEvent(String name){
+    for (int i = 0; i < events.size(); i++) {
+      if (events.getJSONObject(i).getString("name").equals(name)) {
+        JSONObject event = events.getJSONObject(i);
+        for (int o = 0; o < event.getJSONArray("checks").size(); o++) {
+          
+        }
       }
     }
   }
@@ -121,25 +181,9 @@ class Participant {
         boolean tagPresent = false;
         for (int u = 0; u < tags.size(); u++) {
           if (tags.getString(u) == tag) {
-            tagPresent = true;
+            runEffect(effect);
             break;
           }
-        }
-        if (!tagPresent) {
-          continue;
-        }
-        switch (effect.getString("effectType")) {
-          case "changeArith":
-            JSONArray affectedStats = effect.getJSONArray("stats");
-            for (int u = 0; u < affectedStats.size(); u++) {
-              inStats.set(affectedStats.getString(u), inStats.get(affectedStats.getString(u)) + affectedStats.getFloat(u));
-            }
-            break;
-          case "checkMod":
-            checkMod += effect.getFloat("val");
-            break;
-          case "changeCap":
-            
         }
       }
     }
@@ -180,5 +224,9 @@ class Participant {
       }
     }
   }
-
+  
+  void saveParticipant() {
+    //unimplemented
+  }
+  
 }
