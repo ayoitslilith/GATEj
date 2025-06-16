@@ -13,7 +13,7 @@
                         "condition": "Malnourishment"
                     }
                 ]
-            }
+            },
             {
                 "diag" : "Participant is excessively hungry.",
                 "effects": [
@@ -90,7 +90,7 @@
                 ]
             },
             {
-                "diag": "Participant is facing the lasting consequences of overnourishment.",
+                "diag": "Participant is facing the lasting consequences of overnourishment."
             }
         ]
     }

@@ -1,0 +1,20 @@
+[
+	{
+		"name": "At Least I'm Alive",
+		"exp": "Although their future is uncertain, they are drawing breath.",
+		"effects": [
+			{
+				"effectType": "changeArith",
+				"tags": ["taxes"],
+				"stats": ["dietetics", "hygienics"],
+				"val": -0.1
+			},
+			{
+				"effectType": "event",
+				"tags": ["taxes", "dietetics"],
+				"event": "Hunger"
+			}
+		]
+	}
+	
+]
