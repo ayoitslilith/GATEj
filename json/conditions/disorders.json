@@ -11,7 +11,7 @@
 				 "and the difficulty for it to be a misdiagnosis. All random chance events are performed by selecting a random number between 1 and 6, inclusive.",
 				 "A difficulty determines the minimum value for a the random number to hit in order for the check to pass. Modifiers affect the range of values",
 				 "that the random number generator will choose between. For example, a modifier of -2 will cause the generator to select a number between -1 and 4,",
-				 "inclusive."],
+				 "inclusive. Diagnosis difficulty currently unused"],
 		
 		"effects": [
 			{
