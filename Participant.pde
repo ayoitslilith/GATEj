@@ -1,5 +1,3 @@
-import java.awt.event.*;
-
 class Participant {
   
   //int participantSeed;
@@ -19,19 +17,18 @@ class Participant {
   JSONArray possibleConds;
   
   JSONArray events;
-  float checkMod;
+  //JSONArray checkMods;
+  //String[] checkNames = {"Mind Reading", "Polarizing", "Magical Thinking", "Fortune Telling", "Filtering", "Catastrophizing"}
 
-  EventListener diagnosticListener;
-  
-  
-  
+  private Listener pListener = null;
+
   Participant(boolean loadPrev, JSONArray possibleCondsParam, JSONArray eventsParam) {
     possibleConds = possibleCondsParam;
     if (loadPrev) {
       println("No loading code yet, sorry!");
     }
     else {
-      //participantSeed = int(random(0, 999999));
+      //participantSeed = random.nextInt(0, 999999));
       inStats = new FloatDict();
       
       inStats.set("phys", 3.0);
@@ -60,16 +57,14 @@ class Participant {
       
       inStats.set("step", 0.0);
       
-      inStats.set("shift", 1.0);
+      inStats.set("work_shift", 1.0);
       
       activeConds = new JSONArray();
       addCond("At Least I'm Alive");
       events = eventsParam;
     }
-
-     diagnosticListener = new EventListener()
   }
-  
+
   void statChangeClear() {
     chStats.set("phys", 0.0);
     chStats.set("psyc", 0.0);
@@ -130,7 +125,7 @@ class Participant {
         }
         break;
       case "checkMod":
-        checkMod += effect.getFloat("val");
+        //checkMods.get += effect.getFloat("val"); //unused
         break;
       case "changeCap":
         float val = effect.getFloat("val");
@@ -171,6 +166,7 @@ class Participant {
     for (int i = 0; i < events.size(); i++) {
       if (events.getJSONObject(i).getString("name").equals(name)) {
         JSONObject event = events.getJSONObject(i);
+        int roll = random.nextInt(6) + 1 
         for (int o = 0; o < event.getJSONArray("checks").size(); o++) {
           
         }
@@ -199,6 +195,7 @@ class Participant {
     doEffectTag("taxes");
     applyStatChanges();
     checkMod = 0;
+    chStats.set("step") = inStats.get("step") + 1.0;
   }
   
   void clock() {
@@ -235,5 +232,4 @@ class Participant {
   void saveParticipant() {
     //unimplemented
   }
-  
 }

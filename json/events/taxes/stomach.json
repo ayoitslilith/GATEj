@@ -78,6 +78,7 @@
     {
         "event": "Overnourishment",
         "checkType": "Catastrophizing",
+        "statistic": "dietetics",
         "thresholds": [2],
         "outcomes": [
             {

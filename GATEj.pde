@@ -1,6 +1,7 @@
 import java.nio.file.FileSystem;
 
 Participant participant;
+Participant.Listener listener;
 
 void setup() {
   //println("setup start");
@@ -24,6 +25,7 @@ void participantInit() {
   saveJSONArray(eventList, "json/events/clump.json");
   
   participant = new Participant(false, condList, eventList);
+  listener = new ParticipantListener();
 }
 
 void diagnostic(String message) {
